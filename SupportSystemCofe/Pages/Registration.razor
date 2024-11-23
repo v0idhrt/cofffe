@@ -1,0 +1,43 @@
+﻿@page "/registration"
+@inject ApplicationDbContext DbContext
+
+<h3>Регистрация</h3>
+
+<EditForm Model="RegistrationData" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>ФИО:</label>
+        <InputText @bind-Value="RegistrationData.FullName" />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="RegistrationData.Email" />
+    </div>
+
+    <div>
+        <label>Телефон:</label>
+        <InputText @bind-Value="RegistrationData.Phone" />
+    </div>
+
+    <div>
+        <label>Пароль:</label>
+        <InputText @bind-Value="RegistrationData.Password" Type="password" />
+    </div>
+
+    <button type="submit">Зарегистрироваться</button>
+</EditForm>
+
+@code {
+    private RegistrationRequest RegistrationData = new();
+
+    private async Task HandleSubmit()
+    {
+        DbContext.RegistrationRequests.Add(RegistrationData);
+        await DbContext.SaveChangesAsync();
+        RegistrationData = new(); // Сбрасываем форму
+        Console.WriteLine("Регистрация успешна!");
+    }
+}

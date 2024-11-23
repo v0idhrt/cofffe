@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+<div>
+    <header>
+        <h1>Support System</h1>
+        <nav>
+            <NavLink href="/" Match="NavLinkMatch.All">Главная</NavLink>
+            <NavLink href="/registration">Регистрация</NavLink>
+        </nav>
+    </header>
+    <main>
+        @Body
+    </main>
+</div>
+
+<style>
+    header {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+    }
+    nav a {
+        margin-right: 10px;
+        color: white;
+    }
+</style>
