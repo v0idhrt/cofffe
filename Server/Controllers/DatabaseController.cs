@@ -24,7 +24,7 @@ namespace Server.Controllers
                                     "industry     TEXT NOT NULL, " +
                                     "region       TEXT NOT NULL, " +
                                     "scale        TEXT NOT NULL, " +
-                                    "activity     TEXT , " +
+                                    "activity     TEXT NOT NULL, " +
                                     "details      TEXT NOT NULL," +
                                     "isActivated  INTEGER NOT NULL" +
                                     ")";
@@ -49,9 +49,9 @@ namespace Server.Controllers
             }
 
             _command.CommandText = "INSERT INTO Users " +
-                "(fullName, email, phone, password, businessName, industry, region, scale, activity, details, isActivated)" +
+                "(fullName, email, phone, password, businessName, industry, region, scale, details, isActivated)" +
                $"VALUES ('{regInfo.FullName}', '{regInfo.Email}', '{regInfo.Phone}', '{regInfo.Password}', '{regInfo.BusinessName}', " +
-               $"'{regInfo.Industry}', '{regInfo.Region}', '{regInfo.Scale}', '{regInfo.Activity}', '{regInfo.Details}', 0)";
+               $"'{regInfo.Industry}', '{regInfo.Region}', '{regInfo.Scale}', '{regInfo.Details}', 0)";
 
             inserted = _command.ExecuteNonQuery();
             return inserted;
@@ -78,7 +78,6 @@ namespace Server.Controllers
                     regInfo.Industry     = (string)reader["industry"];
                     regInfo.Region       = (string)reader["region"];
                     regInfo.Scale        = (string)reader["scale"];
-                    regInfo.Activity     = (string)reader["activity"];
                     regInfo.Details      = (string)reader["details"];
                 }
                 else

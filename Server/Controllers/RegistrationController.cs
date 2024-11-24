@@ -69,7 +69,7 @@ namespace SupportSystemCofe.Server.Controllers
     public class ConfirmationController : ControllerBase
     {
         [HttpPost]
-        public IActionResult GetProfile([FromBody] ConfirmationRequest request)
+        public IActionResult ConfirmAcc([FromBody] ConfirmationRequest request)
         {
             if (!ControllerGlobals.confirmInProcess.ContainsKey(request.Value))
             {
@@ -83,6 +83,20 @@ namespace SupportSystemCofe.Server.Controllers
                 return BadRequest("Аккаунт не подтвержден.");
 
             return Ok(new { Message = "Почта подтверждена!" });
+        }
+    }
+
+    [ApiController]
+    [Route("api/[controller]")]
+    public class LoginController : ControllerBase
+    {
+        [HttpPost]
+        public IActionResult Login([FromBody] LoginRequest request)
+        {
+            RegistrationRequest regInfo = new RegistrationRequest();
+
+
+            return Ok(new { Message = "Вход успешно выполнен!" });
         }
     }
 }
