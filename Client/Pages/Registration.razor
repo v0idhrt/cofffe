@@ -1,126 +1,113 @@
 ﻿@page "/registration"
-@using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.AspNetCore.Components
 @using SupportSystemCofe.Shared.Models
-@using SupportSystemCofe.Client.Services
-@inject RegistrationService RegistrationService
+@inject NavigationManager NavigationManager
 
+<div class="registration-page">
+    <link href="css/Registration.css" rel="stylesheet" />
 
-<div>
-    <h2>Регистрация</h2>
-    <EditForm Model="RegistrationData" OnValidSubmit="HandleSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <!-- Заголовок страницы -->
+    <div class="registration-header">
+        <h1>Регистрация</h1>
+    </div>
 
-        <fieldset>
-            <legend>Контактные данные</legend>
+    <!-- Форма регистрации -->
+    <div class="registration-form">
+        <EditForm Model="@registrationRequest" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-            <div>
-                <label>ФИО:</label>
-                <InputText @bind="RegistrationData.FullName" />
+            <h2>Контактные данные</h2>
+            <div class="form-group">
+                <label for="fullName">ФИО</label>
+                <InputText id="fullName" @bind-Value="registrationRequest.FullName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText id="email" @bind-Value="registrationRequest.Email" type="email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="phone">Номер телефона</label>
+                <InputText id="phone" @bind-Value="registrationRequest.Phone" type="tel" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <InputText id="password" @bind-Value="registrationRequest.Password" type="password" class="form-control" />
             </div>
 
-            <div>
-                <label>Email:</label>
-                <InputText @bind="RegistrationData.Email" type="email" />
+            <h2>Регистрация бизнеса</h2>
+            <div class="form-group">
+                <label for="businessName">Название бизнеса</label>
+                <InputText id="businessName" @bind-Value="registrationRequest.BusinessName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="industry">Сфера деятельности</label>
+                <InputSelect id="industry" @bind-Value="registrationRequest.Industry" class="form-control">
+                    <option value="IT">IT</option>
+                    <option value="Retail">Розничная торговля</option>
+                    <option value="Food">Общепит</option>
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <label for="region">Регион</label>
+                <InputSelect id="region" @bind-Value="registrationRequest.Region" class="form-control">
+                    <option value="Region1">Регион 1</option>
+                    <option value="Region2">Регион 2</option>
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <label for="scale">Масштаб бизнеса</label>
+                <InputSelect id="scale" @bind-Value="registrationRequest.Scale" class="form-control">
+                    <option value="Small">Малый</option>
+                    <option value="Medium">Средний</option>
+                    <option value="Large">Крупный</option>
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <label for="details">Дополнительные детали</label>
+                <InputTextArea id="details" @bind-Value="registrationRequest.Details" class="form-control" />
             </div>
 
-            <div>
-                <label>Номер телефона:</label>
-                <InputText @bind="RegistrationData.Phone" />
-            </div>
-
-            <div>
-                <label>Пароль:</label>
-                <InputText @bind="RegistrationData.Password" type="password" />
-            </div>
-
-            <div>
-                <label>Выбор роли:</label>
-                <select @bind="SelectedRole">
-                    <option value="">Выберите роль</option>
-                    <option value="admin">Администратор</option>
-                    <option value="user">Пользователь</option>
-                </select>
-            </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Регистрация бизнеса</legend>
-
-            <div>
-                <label>Название бизнеса:</label>
-                <InputText @bind="RegistrationData.BusinessName" />
-            </div>
-
-            <div>
-                <label>Сфера деятельности:</label>
-                <InputText @bind="RegistrationData.Industry" />
-            </div>
-
-            <div>
-                <label>Этап бизнеса:</label>
-                <select @bind="SelectedBusinessStage">
-                    <option value="">Выберите этап</option>
-                    <option value="startup">Стартап</option>
-                    <option value="growing">Развивающийся</option>
-                    <option value="established">Стабильный</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Регион:</label>
-                <InputText @bind="RegistrationData.Region" />
-            </div>
-
-            <div>
-                <label>Масштаб бизнеса:</label>
-                <select @bind="SelectedScale">
-                    <option value="">Выберите масштаб</option>
-                    <option value="small">Малый</option>
-                    <option value="medium">Средний</option>
-                    <option value="large">Крупный</option>
-                </select>
-            </div>
-
-            <div>
-                <label>Сфера деятельности:</label>
-                <div>
-                    <label><input type="radio" @bind="SelectedActivity"  /> Найти клиентов</label>
-                    <label><input type="radio" @bind="SelectedActivity"  /> Создать продукт</label>
-                    <label><input type="radio" @bind="SelectedActivity"  /> Найти поддержку</label>
-                    <label><input type="radio" @bind="SelectedActivity"  /> Развить бизнес</label>
-                </div>
-            </div>
-
-            <div>
-                <label>Дополнительные детали:</label>
-                <InputTextArea @bind="RegistrationData.Details" rows="4" cols="50" />
-            </div>
-        </fieldset>
-
-        <button type="submit">Продолжить</button>
-    </EditForm>
+            <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+        </EditForm>
+    </div>
 </div>
 
 @code {
-    private RegistrationRequest RegistrationData = new();
-    private string SelectedRole { get; set; }
-    private string SelectedBusinessStage { get; set; }
-    private string SelectedScale { get; set; }
-    private string SelectedActivity { get; set; }
-
-    private async Task HandleSubmit()
+    private RegistrationRequest registrationRequest = new RegistrationRequest();
+    private async Task HandleValidSubmit()
     {
-        var success = await RegistrationService.RegisterAsync(RegistrationData);
+        // Отправка данных на сервер (если используется API)
+        var isSuccessful = await SubmitRegistration();
 
-        if (success)
+        if (isSuccessful)
         {
-            Console.WriteLine("Регистрация успешна!");
+            Console.WriteLine("Данные успешно отправлены!");
+            NavigationManager.NavigateTo("/login");
         }
         else
         {
-            Console.WriteLine("Ошибка регистрации.");
+            Console.WriteLine("Ошибка при обработке данных.");
+        }
+    }
+
+    // Метод для отправки данных на сервер
+    private async Task<bool> SubmitRegistration()
+    {
+        try
+        {
+            // Здесь отправьте данные на сервер через HttpClient
+            // Пример:
+            // var response = await Http.PostAsJsonAsync("api/registration", registrationRequest);
+            // return response.IsSuccessStatusCode;
+
+            // Временный пример без API
+            await Task.Delay(1000); // Эмуляция запроса
+            return true; // Предположим, что данные успешно обработаны
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+            return false;
         }
     }
 }

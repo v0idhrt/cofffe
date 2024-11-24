@@ -1,0 +1,55 @@
+﻿@page "/login"
+@using SupportSystemCofe.Shared.Models
+@inject NavigationManager NavigationManager
+
+<div class="login-page">
+    <link href="css/Login.css" rel="stylesheet" />
+
+    <!-- Текст слева -->
+    <div class="login-text">
+        <h1>Вход</h1>
+        <p>Введите ваши данные, чтобы войти в систему и получить доступ к платформе.</p>
+    </div>
+
+    <!-- Форма справа -->
+    <div class="login-form">
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText id="email" @bind-Value="loginModel.Email" class="form-control" placeholder="Введите ваш email" />
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <InputText id="password" @bind-Value="loginModel.Password" type="password" class="form-control" placeholder="Введите ваш пароль" />
+            </div>
+            <button type="submit" class="btn-login">Войти</button>
+            <a href="/registration" class="register-link">Нет аккаунта? Регистрация</a>
+        </EditForm>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <p class="error-message">@errorMessage</p>
+        }
+    </div>
+</div>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string errorMessage;
+
+    private void HandleLogin()
+    {
+        // Локальная проверка данных (тестовый вход)
+        if (loginModel.Email == "test@example.com" && loginModel.Password == "password")
+        {
+            Console.WriteLine("Вход выполнен успешно");
+            NavigationManager.NavigateTo("/profile");
+        }
+        else
+        {
+            errorMessage = "Неверный email или пароль.";
+            Console.WriteLine("Ошибка: Неверные данные");
+        }
+    }
+}

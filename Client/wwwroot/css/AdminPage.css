@@ -1,0 +1,41 @@
+﻿.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: #ffffff; /* Белый фон */
+    border-radius: 8px; /* Скруглённые углы */
+    overflow: hidden; /* Скрываем лишние элементы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+}
+
+    .data-table thead tr {
+        background-color: #4caf50; /* Зелёный цвет заголовка */
+        color: white;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .data-table th, .data-table td {
+        border: 1px solid #e0e0e0; /* Светло-серый цвет границ */
+        padding: 12px 15px; /* Увеличенные отступы */
+    }
+
+    .data-table tbody tr:nth-child(even) {
+        background-color: #f9fff4; /* Светло-зелёный фон для чётных строк */
+    }
+
+    .data-table tbody tr:hover {
+        background-color: #e8ffe8; /* Светло-зелёный фон при наведении */
+    }
+
+    .data-table tbody td {
+        color: #333; /* Тёмно-серый текст */
+        font-size: 15px;
+    }
+
+    .data-table tbody tr {
+        transition: background-color 0.3s ease; /* Плавный переход цвета при наведении */
+    }

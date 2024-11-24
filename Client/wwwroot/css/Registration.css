@@ -1,0 +1,32 @@
+﻿.registration-page {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    padding: 20px;
+    text-align: center;
+}
+
+.registration-header h1 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.registration-form {
+    background: var(--secondary-color);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}

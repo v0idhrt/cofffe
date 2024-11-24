@@ -1,7 +1,53 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
-<PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="main-page">
+    <link href="css/Home.css" rel="stylesheet" />
 
-Welcome to your new app.
+    <!-- Приветственный блок -->
+    <section class="welcome-section">
+        <h1>Добро пожаловать в наш проект — умный помощник для бизнеса!</h1>
+    </section>
+
+    <!-- Что мы предлагаем -->
+    <section class="offer-section">
+        <h2>Что мы предлагаем?</h2>
+        <div class="offer-cards">
+            <div class="offer-card">
+                <h3>01. Персональный подход</h3>
+                <p>Индивидуальные решения для вашего бизнеса.</p>
+            </div>
+            <div class="offer-card">
+                <h3>02. Проактивные уведомления</h3>
+                <p>Напоминаем вам о ключевых задачах и сроках.</p>
+            </div>
+            <div class="offer-card">
+                <h3>03. Простой пошаговый план</h3>
+                <p>Эффективные действия для достижения цели.</p>
+            </div>
+            <div class="offer-card">
+                <h3>04. Интерактивный AI-ассистент</h3>
+                <p>Помогает вам принимать лучшие решения.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Призыв к действию -->
+    <section class="cta-section">
+        <p>Начните использовать нашу платформу уже сегодня и получите доступ ко всем возможностям для роста вашего бизнеса!</p>
+        <button class="btn btn-primary" @onclick="GoToRegistration">Регистрация</button>
+    </section>
+</div>
+
+@code {
+    private void GoToLogin()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
+    private void GoToRegistration()
+    {
+        NavigationManager.NavigateTo("/registration");
+    }
+}

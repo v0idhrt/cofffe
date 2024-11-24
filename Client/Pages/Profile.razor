@@ -1,0 +1,37 @@
+﻿@page "/profile"
+<div class="profile-page">
+<link href="css/Profile.css" rel="stylesheet" />
+    <div class="profile-header">
+        <h1>Профиль</h1>
+        <p>Информация о вашей компании и её текущем состоянии.</p>
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-info">
+            <h2>Контактные данные</h2>
+            <p><strong>ФИО:</strong> Иванов Иван Иванович</p>
+            <p><strong>Компания:</strong> FirstStep</p>
+            <p><strong>Сфера деятельности:</strong> Геймдев (Gamedev)</p>
+            <p><strong>Этап бизнеса:</strong> Startup</p>
+            <p><strong>Регион:</strong> Красноярский край</p>
+            <p><strong>Цели:</strong> Найти клиентов</p>
+        </div>
+
+        <div class="additional-data">
+            <h2>Дополнительные данные</h2>
+            <p>
+                Мы анализируем данные о компании, которые вы предоставили. Рекомендуем заполнять все поля,
+                чтобы наша система могла максимально точно подобрать для вас решения. Если хотите добавить
+                или изменить информацию, нажмите на соответствующие кнопки.
+            </p>
+
+            <div class="sliders">
+                <label for="progress1">Прогресс задачи 1</label>
+                <input type="range" id="progress1" min="0" max="100" value="50" />
+
+                <label for="progress2">Прогресс задачи 2</label>
+                <input type="range" id="progress2" min="0" max="100" value="70" />
+            </div>
+        </div>
+    </div>
+</div>

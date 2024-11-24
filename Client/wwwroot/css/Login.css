@@ -1,0 +1,116 @@
+﻿/* Общий стиль страницы */
+.login-page {
+    font-family: Arial, sans-serif;
+    background-color: #e8ffe8; /* Светло-зелёный фон */
+    padding: 50px 20px;
+    min-height: 100vh; /* Высота страницы */
+    display: flex;
+    align-items: center; /* Вертикальное центрирование */
+    justify-content: center; /* Горизонтальное центрирование */
+    gap: 40px; /* Расстояние между текстом и формой */
+}
+
+/* Контейнер для текста (слева) */
+.login-text {
+    text-align: left; /* Выравнивание текста по левому краю */
+    max-width: 400px; /* Максимальная ширина текста */
+}
+
+    .login-text h1 {
+        font-size: 32px; /* Размер заголовка */
+        color: #333; /* Тёмно-серый цвет */
+        margin-bottom: 10px;
+    }
+
+    .login-text p {
+        font-size: 16px;
+        color: #555; /* Светло-серый текст */
+        line-height: 1.5;
+    }
+
+/* Контейнер формы */
+.login-form {
+    background: #ffffff; /* Белый фон */
+    border-radius: 15px;
+    padding: 30px 40px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    /* Заголовок формы */
+    .login-form h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .login-form p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+/* Поля ввода */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+    .form-group label {
+        font-size: 14px;
+        color: #388e3c; /* Зелёный цвет для лейблов */
+        margin-bottom: 5px;
+        display: block;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+    .form-control:focus {
+        border-color: #4caf50;
+        outline: none;
+    }
+
+/* Кнопка входа */
+.btn-login {
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+    .btn-login:hover {
+        background-color: #45a049;
+        transform: scale(1.03);
+    }
+
+/* Ссылка для регистрации */
+.register-link {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 15px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+    .register-link:hover {
+        color: #388e3c;
+        text-decoration: underline;
+    }

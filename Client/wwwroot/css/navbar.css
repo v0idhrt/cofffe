@@ -1,0 +1,59 @@
+﻿.main-header {
+    display: flex;
+    justify-content: space-between; /* Элементы выравниваются по краям */
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #d4ffb2; /* Светло-зелёный фон */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 15px;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #388e3c;
+}
+
+.nav-buttons {
+    display: flex; /* Кнопки располагаются в строку */
+    gap: 10px; /* Расстояние между кнопками */
+}
+
+.btn {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Чтобы текст не переносился */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-login {
+    background-color: #4caf50;
+    color: white;
+    width: auto; /* Убираем растягивание */
+}
+
+    .btn-login:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+.btn-register {
+    background-color: #ffffff;
+    color: #388e3c;
+    border: 2px solid #4caf50;
+    width: auto; /* Убираем растягивание */
+}
+
+    .btn-register:hover {
+        background-color: #e8ffe8;
+        transform: scale(1.05);
+    }

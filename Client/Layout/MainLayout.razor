@@ -1,3 +1,28 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<header class="main-header">
+    <div class="logo">Лого и название</div>
+    <nav class="nav-buttons">
+        <button class="btn btn-login" @onclick="GoToLogin">Вход</button>
+        <button class="btn btn-register" @onclick="GoToRegistration">Регистрация</button>
+    </nav>
+</header>
+
+<main class="content">
+    @Body
+</main>
+
+@code {
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    private void GoToLogin()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
+    private void GoToRegistration()
+    {
+        NavigationManager.NavigateTo("/registration");
+    }
+}

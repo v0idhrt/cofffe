@@ -1,0 +1,107 @@
+﻿@page "/admin"
+<link href="css/AdminPage.css" rel="stylesheet" />
+<h1>Данные пользователей</h1>
+
+@if (registrations == null || registrations.Count == 0)
+{
+    <p>Нет данных для отображения.</p>
+}
+else
+{
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Email</th>
+                <th>Телефон</th>
+                <th>Компания</th>
+                <th>Сфера</th>
+                <th>Регион</th>
+                <th>Масштаб</th>
+                <th>Цели</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registration in registrations)
+            {
+                <tr>
+                    <td>@registration.FullName</td>
+                    <td>@registration.Email</td>
+                    <td>@registration.Phone</td>
+                    <td>@registration.BusinessName</td>
+                    <td>@registration.Industry</td>
+                    <td>@registration.Region</td>
+                    <td>@registration.Scale</td>
+                    <td>@registration.Activity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    // Заглушка для данных
+    private List<RegistrationData> registrations;
+
+    protected override void OnInitialized()
+    {
+        // Тестовые данные
+        registrations = new List<RegistrationData>
+        {
+            new RegistrationData
+            {
+                FullName = "Иванов Иван Иванович",
+                Email = "ivanov@example.com",
+                Phone = "+7 (999) 123-45-67",
+                Password = "password123",
+                BusinessName = "FirstStep",
+                Industry = "IT",
+                Region = "Москва",
+                Scale = "Small",
+                Activity = "Найти клиентов",
+                Details = "Детали 1"
+            },
+            new RegistrationData
+            {
+                FullName = "Петров Петр Петрович",
+                Email = "petrov@example.com",
+                Phone = "+7 (999) 987-65-43",
+                Password = "securepassword",
+                BusinessName = "PetroTech",
+                Industry = "Retail",
+                Region = "Санкт-Петербург",
+                Scale = "Medium",
+                Activity = "Создать продукт",
+                Details = "Детали 2"
+            },
+            new RegistrationData
+            {
+                FullName = "Сидоров Сидор Сидорович",
+                Email = "sidorov@example.com",
+                Phone = "+7 (999) 111-22-33",
+                Password = "mypassword",
+                BusinessName = "SidGames",
+                Industry = "Gamedev",
+                Region = "Новосибирск",
+                Scale = "Large",
+                Activity = "Развить бизнес",
+                Details = "Детали 3"
+            }
+        };
+    }
+
+    // Модель данных
+    public class RegistrationData
+    {
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Password { get; set; }
+        public string BusinessName { get; set; }
+        public string Industry { get; set; }
+        public string Region { get; set; }
+        public string Scale { get; set; }
+        public string Activity { get; set; }
+        public string Details { get; set; }
+    }
+}
