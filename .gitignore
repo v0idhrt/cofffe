@@ -7,3 +7,5 @@
 /Shared/bin
 /SupportSystemCofe/obj
 /.vs
+*.db
+Server/Config.cs

@@ -1,3 +1,5 @@
+using Server.Controllers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавляем контроллеры
