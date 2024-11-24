@@ -151,11 +151,13 @@ namespace SupportSystemCofe.Server.Controllers
     public class NewsController : ControllerBase
     {
         private readonly ConsultantNewsController _consultantNewsController;
+        private readonly RgBusinessController _rgBusinessController;
         private readonly IResponseProcessingModule _responseProcessingModule;
 
-        public NewsController(ConsultantNewsController consultantNewsController, IResponseProcessingModule responseProcessingModule)
+        public NewsController(ConsultantNewsController consultantNewsController, IResponseProcessingModule responseProcessingModule, RgBusinessController rgBusinessController)
         {
             _consultantNewsController = consultantNewsController;
+            _rgBusinessController = rgBusinessController;
             _responseProcessingModule = responseProcessingModule;
         }
 
@@ -165,11 +167,14 @@ namespace SupportSystemCofe.Server.Controllers
             try
             {
                 // Получаем все новости из парсера
-                var newsInfo = _consultantNewsController.GetNewsInfo();
+                var newsInfoCons = _consultantNewsController.GetNewsInfo();
+                var newsInfoRg = _rgBusinessController.GetNewsInfo();
+                newsInfoCons.AddRange(newsInfoRg);
+
 
                 var importantNews = new List<Grant>();
 
-                foreach (var item in newsInfo)
+                foreach (var item in newsInfoCons)
                 {
                     string prompt = $"Ты - бизнес консультант, задача которого проанализировать " +
                         $"юридическую новость и определить - важна ли она для бизнеса. " +

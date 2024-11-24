@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7120") });
 builder.Services.AddScoped<IResponseProcessingModule, ResponseProcessingModule>();
 builder.Services.AddTransient<ConsultantNewsController>();
+builder.Services.AddTransient<RgBusinessController>();
 
 
 // Добавляем контроллеры
