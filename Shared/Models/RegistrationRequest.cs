@@ -15,4 +15,15 @@ namespace SupportSystemCofe.Shared.Models
         public string Activity { get; set; }
         public string Details { get; set; } // Поле для дополнительных деталей
     }
+
+    public class LoginModel
+    {
+        [Required(ErrorMessage = "Email обязателен")]
+        [EmailAddress(ErrorMessage = "Введите корректный Email")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Пароль обязателен")]
+        [MinLength(6, ErrorMessage = "Пароль должен содержать минимум 6 символов")]
+        public string Password { get; set; }
+    }
 }
