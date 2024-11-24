@@ -12,7 +12,6 @@ namespace SupportSystemCofe.Shared.Models
         public string Industry { get; set; }
         public string Region { get; set; }
         public string Scale { get; set; }
-        public string Activity { get; set; }
         public string Details { get; set; } // Поле для дополнительных деталей
     }
 }
