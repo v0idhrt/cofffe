@@ -24,7 +24,7 @@ namespace Server.Controllers
                                     "industry     TEXT NOT NULL, " +
                                     "region       TEXT NOT NULL, " +
                                     "scale        TEXT NOT NULL, " +
-                                    "activity     TEXT NOT NULL, " +
+                                    "activity     TEXT , " +
                                     "details      TEXT NOT NULL," +
                                     "isActivated  INTEGER NOT NULL" +
                                     ")";

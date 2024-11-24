@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Добавляем контроллеры
 builder.Services.AddControllers();
-
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7120") });
 // Настраиваем CORS
 builder.Services.AddCors(options =>
 {

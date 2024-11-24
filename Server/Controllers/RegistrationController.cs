@@ -15,8 +15,8 @@ namespace SupportSystemCofe.Server.Controllers
         [HttpPost]
         public IActionResult Register([FromBody] RegistrationRequest request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("Некорректные данные.");
+            //if (!ModelState.IsValid)
+            //    return BadRequest("Некорректные данные.");
 
             ControllerGlobals.dbControl = new DatabaseController();
             if (ControllerGlobals.dbControl.user_writeRegInfo(request) == 0)

@@ -1,16 +1,15 @@
 ﻿@page "/registration"
 @using SupportSystemCofe.Shared.Models
 @inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
 
 <div class="registration-page">
     <link href="css/Registration.css" rel="stylesheet" />
 
-    <!-- Заголовок страницы -->
     <div class="registration-header">
         <h1>Регистрация</h1>
     </div>
 
-    <!-- Форма регистрации -->
     <div class="registration-form">
         <EditForm Model="@registrationRequest" OnValidSubmit="HandleValidSubmit">
             <DataAnnotationsValidator />
@@ -74,35 +73,41 @@
 
 @code {
     private RegistrationRequest registrationRequest = new RegistrationRequest();
+    private bool isSubmitting = false;
+
     private async Task HandleValidSubmit()
     {
-        // Отправка данных на сервер (если используется API)
-        var isSuccessful = await SubmitRegistration();
+        isSubmitting = true;
 
-        if (isSuccessful)
+        var response = await SubmitRegistration();
+
+        if (response)
         {
-            Console.WriteLine("Данные успешно отправлены!");
+            Console.WriteLine("Регистрация успешна!");
             NavigationManager.NavigateTo("/login");
         }
         else
         {
-            Console.WriteLine("Ошибка при обработке данных.");
+            Console.WriteLine("Ошибка регистрации.");
         }
+
+        isSubmitting = false;
     }
 
-    // Метод для отправки данных на сервер
     private async Task<bool> SubmitRegistration()
     {
         try
         {
-            // Здесь отправьте данные на сервер через HttpClient
-            // Пример:
-            // var response = await Http.PostAsJsonAsync("api/registration", registrationRequest);
-            // return response.IsSuccessStatusCode;
-
-            // Временный пример без API
-            await Task.Delay(1000); // Эмуляция запроса
-            return true; // Предположим, что данные успешно обработаны
+            var response = await HttpClient.PostAsJsonAsync("api/registration", registrationRequest);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Ошибка API: {response.ReasonPhrase}");
+                return false;
+            }
         }
         catch (Exception ex)
         {
