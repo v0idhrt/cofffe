@@ -1,17 +1,16 @@
 ﻿@page "/login"
 @using SupportSystemCofe.Shared.Models
+@inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 
 <div class="login-page">
     <link href="css/Login.css" rel="stylesheet" />
 
-    <!-- Текст слева -->
     <div class="login-text">
         <h1>Вход</h1>
         <p>Введите ваши данные, чтобы войти в систему и получить доступ к платформе.</p>
     </div>
 
-    <!-- Форма справа -->
     <div class="login-form">
         <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
             <DataAnnotationsValidator />
@@ -38,18 +37,40 @@
     private LoginModel loginModel = new LoginModel();
     private string errorMessage;
 
-    private void HandleLogin()
+    private async Task HandleLogin()
     {
-        // Локальная проверка данных (тестовый вход)
-        if (loginModel.Email == "test@example.com" && loginModel.Password == "password")
+        try
         {
-            Console.WriteLine("Вход выполнен успешно");
-            NavigationManager.NavigateTo("/profile");
+            // Отправляем запрос на авторизацию
+            var response = await HttpClient.PostAsJsonAsync("https://localhost:7120/api/login", loginModel);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Читаем ответ с сервера
+                var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                Console.WriteLine(result.Message);
+
+                // Перенаправляем на профиль
+                NavigationManager.NavigateTo(result.ProfileUrl);
+            }
+            else
+            {
+                // Обрабатываем ошибки авторизации
+                errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Ошибка авторизации: {errorMessage}");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            errorMessage = "Неверный email или пароль.";
-            Console.WriteLine("Ошибка: Неверные данные");
+            errorMessage = $"Ошибка подключения к серверу: {ex.Message}";
+            Console.WriteLine($"Ошибка: {ex.Message}");
         }
+    }
+
+    // Модель для чтения ответа от API
+    private class LoginResponse
+    {
+        public string Message { get; set; }
+        public string ProfileUrl { get; set; }
     }
 }

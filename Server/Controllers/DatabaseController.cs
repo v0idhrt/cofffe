@@ -24,7 +24,6 @@ namespace Server.Controllers
                                     "industry     TEXT NOT NULL, " +
                                     "region       TEXT NOT NULL, " +
                                     "scale        TEXT NOT NULL, " +
-                                    "activity     TEXT NOT NULL, " +
                                     "details      TEXT NOT NULL," +
                                     "isActivated  INTEGER NOT NULL" +
                                     ")";
@@ -56,6 +55,36 @@ namespace Server.Controllers
             inserted = _command.ExecuteNonQuery();
             return inserted;
         }
+        public List<RegistrationRequest> GetAllUsers()
+        {
+            var users = new List<RegistrationRequest>();
+
+            _command.Connection = _con;
+            _command.CommandText = "SELECT fullName, email, phone, password, businessName, industry, region, scale, details FROM Users";
+
+            using (SqliteDataReader reader = _command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var user = new RegistrationRequest
+                    {
+                        FullName = reader["fullName"].ToString(),
+                        Email = reader["email"].ToString(),
+                        Phone = reader["phone"].ToString(),
+                        Password = reader["password"].ToString(),
+                        BusinessName = reader["businessName"].ToString(),
+                        Industry = reader["industry"].ToString(),
+                        Region = reader["region"].ToString(),
+                        Scale = reader["scale"].ToString(),
+                        Details = reader["details"].ToString()
+                    };
+
+                    users.Add(user);
+                }
+            }
+
+            return users;
+        }
 
         public RegistrationRequest user_getRegInfo(string userEmail)
         {
@@ -70,15 +99,15 @@ namespace Server.Controllers
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    regInfo.FullName     = (string)reader["fullName"];
-                    regInfo.Email        = (string)reader["email"];
-                    regInfo.Phone        = (string)reader["phone"];
-                    regInfo.Password     = String.Empty;
+                    regInfo.FullName = (string)reader["fullName"];
+                    regInfo.Email = (string)reader["email"];
+                    regInfo.Phone = (string)reader["phone"];
+                    regInfo.Password = (string)reader["password"];
                     regInfo.BusinessName = (string)reader["businessName"];
-                    regInfo.Industry     = (string)reader["industry"];
-                    regInfo.Region       = (string)reader["region"];
-                    regInfo.Scale        = (string)reader["scale"];
-                    regInfo.Details      = (string)reader["details"];
+                    regInfo.Industry = (string)reader["industry"];
+                    regInfo.Region = (string)reader["region"];
+                    regInfo.Scale = (string)reader["scale"];
+                    regInfo.Details = (string)reader["details"];
                 }
                 else
                 {
@@ -129,4 +158,7 @@ namespace Server.Controllers
             _con.Close();
         }
     }
+
+
 }
+

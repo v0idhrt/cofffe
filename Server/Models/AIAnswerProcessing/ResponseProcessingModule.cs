@@ -13,6 +13,7 @@ namespace AIcontrolComputer.Models.AIAnswerProcessing
     public interface IResponseProcessingModule
     {
         Task<List<AIResponse>> GetAllAnswer(string request);
+        Task<List<AIResponse>> GetSelectedAIResponses(string request, List<string> selectedModels);
         Task<Dictionary<string, EvaluationResult>> GetAllAIEvaluation(Task<List<AIResponse>> answersToEvaluateTask,  string userInput);
         Task<string> GetClaudAnswer(string request);
         Task<string> GetGeminiAnswer(string request);
@@ -21,6 +22,8 @@ namespace AIcontrolComputer.Models.AIAnswerProcessing
         Task<string> GetGigaChatAnswer(string request);
         Task<string> GetMistralAnswer(string request);
     }
+
+
     public class ResponseProcessingModule : IResponseProcessingModule
     {
 
@@ -107,6 +110,32 @@ namespace AIcontrolComputer.Models.AIAnswerProcessing
             IGigaChatAPI an = new GigaChatAPI();
             string answer = await an.SendChatCompletionRequestGigaChat(request);
             return answer;
+        }
+
+        public async Task<List<AIResponse>> GetSelectedAIResponses(string request, List<string> selectedModels)
+        {
+            var responses = new List<AIResponse>();
+
+            foreach (var model in selectedModels)
+            {
+                switch (model)
+                {
+                    case "GPT":
+                        responses.Add(new AIResponse("GPT", await GetGptAnswer(request)));
+                        break;
+                    case "Claud":
+                        responses.Add(new AIResponse("Claud", await GetClaudAnswer(request)));
+                        break;
+                    case "Gemini":
+                        responses.Add(new AIResponse("Gemini", await GetGeminiAnswer(request)));
+                        break;
+                    default:
+                        Console.WriteLine($"Неизвестная модель: {model}");
+                        break;
+                }
+            }
+
+            return responses;
         }
 
         private async Task<AIResponse> GetResponseAsync(string modelName, string request, Func<string, Task<string>> apiCall)

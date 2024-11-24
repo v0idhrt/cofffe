@@ -1,3 +1,4 @@
+using AIcontrolComputer.Models.AIAnswerProcessing;
 using Server.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Добавляем контроллеры
 builder.Services.AddControllers();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7120") });
+builder.Services.AddScoped<IResponseProcessingModule, ResponseProcessingModule>();
+builder.Services.AddTransient<ConsultantNewsController>();
+
+
+// Добавляем контроллеры
+builder.Services.AddControllers();
+
+
 // Настраиваем CORS
 builder.Services.AddCors(options =>
 {

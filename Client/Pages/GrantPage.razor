@@ -1,10 +1,11 @@
 ﻿@page "/grants"
+@inject HttpClient HttpClient
 
 <div class="grants-page">
     <link href="css/GrantsPage.css" rel="stylesheet" />
 
     <div class="grants-header">
-        <h1>Гранты и субсидии</h1>
+        <h1>Последние важные новости</h1>
     </div>
 
     <div class="grants-container">
@@ -20,8 +21,7 @@
                     <li class="grant-item">
                         <h2>@grant.Title</h2>
                         <p><strong>Описание:</strong> @grant.Description</p>
-                        <p><strong>Дата начала:</strong> @grant.StartDate.ToShortDateString()</p>
-                        <p><strong>Дата окончания:</strong> @grant.EndDate.ToShortDateString()</p>
+                        <p><strong>Оценка ИИ:</strong> @grant.AIAnalysis</p>
                     </li>
                 }
             </ul>
@@ -32,39 +32,23 @@
 @code {
     private List<Grant> grants;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        grants = new List<Grant>
+        try
         {
-            new Grant
-            {
-                Title = "Поддержка стартапов 2024",
-                Description = "Грант для малых инновационных предприятий, направленный на развитие IT-решений.",
-                StartDate = new DateTime(2024, 1, 15),
-                EndDate = new DateTime(2024, 3, 30)
-            },
-            new Grant
-            {
-                Title = "Субсидии на развитие бизнеса",
-                Description = "Финансовая помощь для компаний, занимающихся производством экологической продукции.",
-                StartDate = new DateTime(2024, 2, 1),
-                EndDate = new DateTime(2024, 4, 15)
-            },
-            new Grant
-            {
-                Title = "Грант на обучение сотрудников",
-                Description = "Поддержка бизнеса в проведении образовательных программ для сотрудников.",
-                StartDate = new DateTime(2024, 3, 1),
-                EndDate = new DateTime(2024, 5, 31)
-            }
-        };
+            // Запрос к API для получения новостей
+            grants = await HttpClient.GetFromJsonAsync<List<Grant>>("api/news/important");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка загрузки данных: {ex.Message}");
+        }
     }
 
     public class Grant
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string AIAnalysis { get; set; } // Оценка ИИ
     }
 }
